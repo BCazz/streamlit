@@ -1,0 +1,5 @@
+# folders to ignore
+
+virtual_market_analyst/__pycache__/*
+virtual_market_analyst/scripts/__pycache__/*
+virtual_market_analyst/.streamlit/secrets.toml

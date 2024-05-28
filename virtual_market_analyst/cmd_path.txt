@@ -1,0 +1,1 @@
+cd /d q:\Option Model\GitHub\advanced_power_repo\virtual_market_analyst
