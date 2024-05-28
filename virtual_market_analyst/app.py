@@ -98,8 +98,8 @@ else:
     spacer3 = st.empty()
 
     # Display the elements using placeholders
-    with image_placeholder:
-        st.image("ap_logo.png", use_column_width=True)
+    # with image_placeholder:
+    #     st.image("ap_logo.png", use_column_width=True)
     with spacer1:
         st.write("")
     with spacer2:
