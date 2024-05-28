@@ -8,7 +8,7 @@ from bson import ObjectId
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
-############################################################################### Login / Authorization ###################################################################################3
+######################################################################################################## Login / Authorization ###################################################################################3
 
 # Initialize session state variables
 if 'username' not in st.session_state:
@@ -54,8 +54,8 @@ if not st.session_state['logged_in']:
 else:    
     # code moves on
 
-    ################################################################################# ChatBot #################################################################################################################3
-    ################################################################################ Set Prompts ####################################################################################################
+    ############################################################################################################# ChatBot #################################################################################################################3
+    ########################################################################################################### Set Prompts ####################################################################################################
 
     system_prompt = """
     You are a commodity research analyst that helps other understand commodity market key developments and news that impact the specified market.
@@ -72,7 +72,15 @@ else:
     If CONTEXT does not contain enough information to respond to the REQUEST return "I need more information to provide an answer".
     """
 
-    ############################################################################### Declare Connections ########################################################################################3
+    weather_prompt = f"Weather Prompt --> Please provide me with a commentary on weather developments that have occurred that could impact power or natural gas market. Weather developments of interest include those that relate to waves of oncoming or upcoming heat and or cold fronts. Other developments of interest include those that pertain to the increase or decrease of heating degree days, often referred to as 'HDDs', and/or the increase or decrease of cooling degree days, often referred to as 'CDDs'."
+    economic_prompt = f"Economic Prompt --> Please provide me with a commentary on economic developments that have occurred which could impact power or natural gas demand."
+    data_center_prompt = f"Data Center Prompt --> Please provide me with a commentary on data center developments that have occurred. Data center developments of interest are the annoucements of new planned investments and deals for power supply to data centers. Other areas of interest also include news on the progression of data center build outs or financings. Also of interest is news on how data centers can drive an increase in electricty demand."
+    lng_prompt = f"LNG Prompt --> Please provide me with a commentary on LNG developments that have occurred. LNG developments of interest include those pertaining to outages for export terminals ending, the volume of exports increasing, and progress on LNG terminals under development. Please exclude any commentary on LNG terminal outages being extended or occuring."
+    technicals_prompt = f"Market Technicals Prompt --> Please provide me with a commentary on technical developments that have occurred. Technical developments of interest include those relevant to market participant positioning such as investors, market participants, and speculators decreasing, covering, or adding to positions."
+    production_prompt = f"Production Prompt --> Please provide me with a commentary on the developments that impacted natural gas production."
+    storage_prompt = f"Storage Prompt --> Please provide me with a commentary on the developments that impacted the levels of natural gas in storage."
+
+    ########################################################################################## Declare Connections ########################################################################################3
     # setting credentials for MongoDB and OpenAI
     for key in ('uri', 'open_ai_api_key'):
         if key not in st.session_state:
@@ -89,7 +97,7 @@ else:
     # Set OpenAI API key
     openai.api_key = openai_api_key
 
-    ############################################################################### Take User Inputs ########################################################################################3
+    ########################################################################################### Take User Inputs ########################################################################################3
 
     # adding titles and instructions
     image_placeholder = st.empty()
@@ -158,10 +166,13 @@ else:
             st.date_input("End Date", key="end_date")
 
             st.write("")
-            st.write("Please select the ISO for which you would like your response to be grounded.")
+            st.write("Please select the ISO for which you would like your response to be grounded if applicable.")
             isos = ['N/A','ERCOT','NYISO','PJM','MISO']
             iso = st.radio("ISOs:", options=isos, index=isos.index(st.session_state.iso), horizontal=False, key='iso')
             st.write("")
+
+            with st.expander("Click to see some prompt ideas"):
+                st.write(f"{weather_prompt}\n\n{economic_prompt}\n\n{data_center_prompt}\n\n{lng_prompt}\n\n{technicals_prompt}\n\n{production_prompt}\n\n{storage_prompt}")
 
             st.write("Please write your question for the ChatBot.")
             st.text_area("Type Below:", height=250, key="user_prompt")
