@@ -145,8 +145,8 @@ else:
         with st.form("rag_form"):
             
             st.write("Please select the time period for which you would like your response to be grounded.")
-            st.date_input("Start Date", value=st.session_state['start_date'], key="start_date")
-            st.date_input("End Date", value=st.session_state['end_date'], key="end_date")
+            st.date_input("Start Date", key="start_date")
+            st.date_input("End Date", key="end_date")
 
             st.write("")
             st.write("Please select the ISO for which you would like your response to be grounded.")
