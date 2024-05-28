@@ -1,6 +1,7 @@
 import re
 import time
 import openai
+import calendar
 import datetime as dt
 import streamlit as st
 from bson import ObjectId
@@ -122,9 +123,17 @@ else:
     if 'iso' not in st.session_state:
         st.session_state.iso = "N/A"
 
-    for key in ('start_date', 'end_date'):
-        if key not in st.session_state:
-            st.session_state[key] = dt.datetime(2024,1,1).date()
+    # Calculate the default dates
+    today = dt.date.today()
+    bom = today.replace(day=1)
+    _, last_day = calendar.monthrange(today.year, today.month)
+    eom = today.replace(day=last_day)
+
+    if 'start_date' not in st.session_state:
+        st.session_state.start_date = bom
+
+    if 'end_date' not in st.session_state:
+        st.session_state.end_date = eom
 
     if 'rag_form_submitted' not in st.session_state:
         st.session_state['rag_form_submitted'] = False
@@ -199,7 +208,7 @@ else:
                 }
 
                 
-                if st.session_state.iso != "n/a" :
+                if iso != "n/a" :
                     match_stage_b = {
                         "$match": {
                             "tags": {
