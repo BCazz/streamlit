@@ -99,7 +99,7 @@ else:
 
     # Display the elements using placeholders
     with image_placeholder:
-        st.image("Q:\\Option Model\\GitHub\\advanced_power_repo\\virtual_market_analyst\\ap_logo.png", use_column_width=True)
+        st.image("ap_logo.png", use_column_width=True)
     with spacer1:
         st.write("")
     with spacer2:
