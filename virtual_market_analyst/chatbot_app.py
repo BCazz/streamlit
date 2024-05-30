@@ -418,3 +418,4 @@ else:
 
         follow_up_prompt = st.text_area("Ask a follow up question:", height=100, key="follow_up_prompt")
         follow_up_button = st.button(label="Submit", type="primary", on_click=follow_up)
+        
